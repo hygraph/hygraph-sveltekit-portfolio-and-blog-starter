@@ -9,15 +9,6 @@ export const get = async () => {
       posts {
         title
         slug
-        date
-        content
-        tags
-        coverImage {
-          url
-        }
-        authors {
-          name
-        }
       }
     }
   `
