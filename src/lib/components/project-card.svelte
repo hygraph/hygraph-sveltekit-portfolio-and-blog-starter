@@ -5,13 +5,6 @@
   export let description = ''
 </script>
 
-<!-- 
-  40, 60
-  60, 40
-  40, 60
-  60, 40
- -->
-
 <div class="relative group card shadow-2xl col-span-2">
   <img src={url} alt={name} class="object-cover h-full" />
   <a href={`/projects/${slug}`}>
