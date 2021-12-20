@@ -9,6 +9,7 @@ export const get = async req => {
         project(where: { slug: $slug }) {
           name
           description
+          tags
           demo
           sourceCode
           image {

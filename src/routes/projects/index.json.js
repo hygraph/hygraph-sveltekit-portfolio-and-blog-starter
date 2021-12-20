@@ -9,6 +9,7 @@ export const get = async (req, res) => {
           name
           slug
           description
+          tags
           demo
           sourceCode
           image {
