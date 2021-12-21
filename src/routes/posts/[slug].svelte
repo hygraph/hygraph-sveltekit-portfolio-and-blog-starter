@@ -1,18 +1,22 @@
 <script context="module">
-  export const load = async ({ fetch, page: { params } }) => {
+  import { client } from '$lib/graphql-client'
+  import { postQuery } from '$lib/graphql-queries'
+  import { marked } from 'marked'
+
+  export const load = async ({ page: { params } }) => {
     const { slug } = params
-    const res = await fetch(`/posts/${slug}.json`)
-    if (res.ok) {
-      const { post } = await res.json()
-      return {
-        props: { post },
-      }
+    const variables = { slug }
+    const { post } = await client.request(postQuery, variables)
+
+    return {
+      props: {
+        post,
+      },
     }
   }
 </script>
 
 <script>
-  import { marked } from 'marked'
   export let post
 
   const { title, date, tags, content, coverImage } = post

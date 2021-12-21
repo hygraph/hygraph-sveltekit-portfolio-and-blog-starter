@@ -1,20 +1,20 @@
 <script context="module">
-  export const load = async ({ fetch }) => {
-    const res = await fetch('/projects.json')
-    if (res.ok) {
-      const projects = await res.json()
-      return {
-        props: {
-          projects,
-        },
-      }
+  import ProjectCard from '$lib/components/project-card.svelte'
+  import { client } from '$lib/graphql-client'
+  import { projectsQuery } from '$lib/graphql-queries'
+
+  export const load = async () => {
+    const { projects } = await client.request(projectsQuery)
+
+    return {
+      props: {
+        projects,
+      },
     }
   }
 </script>
 
 <script>
-  import ProjectCard from '$lib/components/project-card.svelte'
-
   export let projects
 </script>
 

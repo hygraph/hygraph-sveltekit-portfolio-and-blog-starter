@@ -1,19 +1,22 @@
 <script context="module">
-  export const load = async ({ fetch, page: { params } }) => {
+  import { client } from '$lib/graphql-client'
+  import { projectQuery } from '$lib/graphql-queries'
+  import { marked } from 'marked'
+
+  export const load = async ({ page: { params } }) => {
     const { slug } = params
-    const res = await fetch(`/projects/${slug}.json`)
-    if (res.ok) {
-      const project = await res.json()
-      return {
-        props: project,
-      }
+    const variables = { slug }
+    const { project } = await client.request(projectQuery, variables)
+
+    return {
+      props: {
+        project,
+      },
     }
   }
 </script>
 
 <script>
-  import { marked } from 'marked'
-
   export let project
 </script>
 
