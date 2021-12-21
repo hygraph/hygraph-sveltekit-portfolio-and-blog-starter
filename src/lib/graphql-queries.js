@@ -14,70 +14,68 @@ export const authorsQuery = gql`
   }
 `
 
+const PROJECT_FRAGMENT = gql`
+  fragment ProjectDetails on Project {
+    name
+    slug
+    description
+    tags
+    demo
+    sourceCode
+    image {
+      url
+    }
+  }
+`
+
 export const projectsQuery = gql`
+  ${PROJECT_FRAGMENT}
   query Projects {
     projects {
-      name
-      slug
-      description
-      tags
-      demo
-      sourceCode
-      image {
-        url
-      }
+      ...ProjectDetails
     }
   }
 `
 
 export const projectQuery = gql`
+  ${PROJECT_FRAGMENT}
   query Project($slug: String!) {
     project(where: { slug: $slug }) {
+      ...ProjectDetails
+    }
+  }
+`
+
+const POST_FRAGMENT = gql`
+  fragment PostDetails on Post {
+    title
+    slug
+    date
+    content
+    tags
+    coverImage {
+      url
+    }
+    authors {
       name
-      description
-      tags
-      demo
-      sourceCode
-      image {
-        url
-      }
     }
   }
 `
 
 export const postsQuery = gql`
+  ${POST_FRAGMENT}
   query Posts {
     posts {
-      title
-      slug
-      date
-      content
-      tags
-      coverImage {
-        url
-      }
-      authors {
-        name
-      }
+      ...PostDetails
     }
   }
 `
 
 export const postQuery = gql`
+  ${POST_FRAGMENT}
   query Post($slug: String!) {
     post(where: { slug: $slug }) {
-      title
-      slug
-      date
-      content
-      tags
-      content
-      coverImage {
-        url
-      }
-      authors {
-        name
-      }
+      ...PostDetails
     }
   }
 `
