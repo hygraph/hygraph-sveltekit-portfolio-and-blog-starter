@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-  <title>My Portfolio project</title>
+  <title>My Portfolio projects</title>
 </svelte:head>
 
 <h1 class="font-bold mb-20 text-center text-5xl">
