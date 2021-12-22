@@ -1,38 +1,34 @@
-# create-svelte
+# Jamstack Explorers GraphCMS and SvelteKit
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+> Minimalist Developer Portfolio and Blog built with SvelteKit,
+> Tailwind, daisyUI, and deployed to Vercel.
 
-## Creating a project
+## The stack
 
-If you're seeing this, you've probably already done this step. Congrats!
+This is an example project generated with the GraphCMS Developer
+Portfolio and Blog starter.
+
+- **[GraphCMS](https://graphcms.com)**: Manage projects and blog
+  posts.
+- **[SvelteKit](https://kit.svelte.dev/)**: A powerful framework that
+  lets us query data and use endpoints for server side data.
+- **[Vercel](https://www.vercel.com/)**: For an intuitive Git based
+  workflow with seamless publishing.
+
+## How to use
+
+⚠TODO!
+
+Rename the `sample.env` file to `.env` and add your own Content API
+endpoint.
 
 ```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
+mv sample.env .env
 ```
 
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Install dependencies and run local dev server:
 
 ```bash
+npm i
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
-
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
