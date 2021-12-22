@@ -30,7 +30,7 @@ const PROJECT_FRAGMENT = gql`
 
 export const projectsQuery = gql`
   ${PROJECT_FRAGMENT}
-  query Projects {
+  query GetProjects {
     projects {
       ...ProjectDetails
     }
@@ -39,7 +39,7 @@ export const projectsQuery = gql`
 
 export const projectQuery = gql`
   ${PROJECT_FRAGMENT}
-  query Project($slug: String!) {
+  query GetProject($slug: String!) {
     project(where: { slug: $slug }) {
       ...ProjectDetails
     }
@@ -47,7 +47,7 @@ export const projectQuery = gql`
 `
 
 const POST_FRAGMENT = gql`
-  fragment PostDetails on Post {
+  fragment GetPostDetails on Post {
     title
     slug
     date
@@ -64,7 +64,7 @@ const POST_FRAGMENT = gql`
 
 export const postsQuery = gql`
   ${POST_FRAGMENT}
-  query Posts {
+  query GetPosts {
     posts {
       ...PostDetails
     }
@@ -73,7 +73,7 @@ export const postsQuery = gql`
 
 export const postQuery = gql`
   ${POST_FRAGMENT}
-  query Post($slug: String!) {
+  query GetPost($slug: String!) {
     post(where: { slug: $slug }) {
       ...PostDetails
     }
