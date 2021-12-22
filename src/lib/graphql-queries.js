@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request'
 
 export const authorsQuery = gql`
-  query Authors {
+  query GetAuthors {
     authors {
       name
       intro
