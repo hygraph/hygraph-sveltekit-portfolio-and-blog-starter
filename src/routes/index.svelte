@@ -1,32 +1,28 @@
 <script context="module">
-  export const load = async ({ fetch }) => {
-    const [projectsReq, authorsReq] = await Promise.all([
-      fetch('/projects.json'),
-      fetch('/authors.json'),
+  import ProjectCard from '$lib/components/project-card.svelte'
+  import { client } from '$lib/graphql-client'
+  import { authorsQuery, projectsQuery } from '$lib/graphql-queries'
+
+  export const load = async () => {
+    const [authorRes, projectsRes] = await Promise.all([
+      client.request(authorsQuery),
+      client.request(projectsQuery),
     ])
-    if (projectsReq.ok && authorsReq.ok) {
-      const projects = await projectsReq.json()
-      const authors = await authorsReq.json()
-      return {
-        props: {
-          projects,
-          authors,
-        },
-      }
+    const { authors } = authorRes
+    const { projects } = projectsRes
+
+    return {
+      props: {
+        projects,
+        authors,
+      },
     }
   }
 </script>
 
 <script>
-  import ProjectCard from '$lib/components/project-card.svelte'
-
   export let projects
   export let authors
-  const {
-    name,
-    intro,
-    picture: { url },
-  } = authors[0]
 </script>
 
 <svelte:head>
@@ -37,25 +33,21 @@
   Welcome to my Portfolio
 </h1>
 
-<div class="flex mb-40 items-end">
-  <div class="mr-6">
-    <h2 class="text-3xl mb-4 font-bold tracking-wider">{name}</h2>
-    <p class="text-xl mb-4">{intro}</p>
-  </div>
+{#each authors as { name, intro, picture: { url } }}
+  <div class="flex mb-40 items-end">
+    <div class="mr-6">
+      <h2 class="text-3xl mb-4 font-bold tracking-wider">{name}</h2>
+      <p class="text-xl mb-4">{intro}</p>
+    </div>
 
-  <img class="mask mask-squircle h-48" src={url} alt={name} />
-</div>
+    <img class="mask mask-squircle h-48" src={url} alt={name} />
+  </div>
+{/each}
 
 <div
   class="grid gap-10 md:grid-cols-4 md:px-10 lg:grid-cols-6 lg:-mx-52"
 >
-  {#each projects as { name, slug, description, image }, index}
-    <ProjectCard
-      {name}
-      {description}
-      url={image[0].url}
-      {index}
-      {slug}
-    />
+  {#each projects as { name, slug, description, image }}
+    <ProjectCard {name} {description} url={image[0].url} {slug} />
   {/each}
 </div>

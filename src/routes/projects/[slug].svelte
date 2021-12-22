@@ -1,19 +1,22 @@
 <script context="module">
-  export const load = async ({ fetch, page: { params } }) => {
+  import { client } from '$lib/graphql-client'
+  import { projectQuery } from '$lib/graphql-queries'
+  import { marked } from 'marked'
+
+  export const load = async ({ page: { params } }) => {
     const { slug } = params
-    const res = await fetch(`/projects/${slug}.json`)
-    if (res.ok) {
-      const project = await res.json()
-      return {
-        props: project,
-      }
+    const variables = { slug }
+    const { project } = await client.request(projectQuery, variables)
+
+    return {
+      props: {
+        project,
+      },
     }
   }
 </script>
 
 <script>
-  import { marked } from 'marked'
-
   export let project
 </script>
 
@@ -21,23 +24,13 @@
   <title>My Portfolio | {project.name}</title>
 </svelte:head>
 
-{#if project.image[0]?.url}
-  <div class="sm:-mx-5 md:-mx-10 lg:-mx-20 xl:-mx-38 mb-5">
-    <img
-      class="rounded-lg"
-      src={project.image[0].url}
-      alt={`Cover Image for ${project.title}`}
-    />
-  </div>
-{:else}
-  <div class="sm:-mx-5 md:-mx-10 lg:-mx-20 xl:-mx-38 mb-5">
-    <img
-      class="rounded-xl"
-      src={`/default-cover-image.jpg`}
-      alt={`Default Cover Image`}
-    />
-  </div>
-{/if}
+<div class="sm:-mx-5 md:-mx-10 lg:-mx-20 xl:-mx-38 mb-5">
+  <img
+    class="rounded-lg"
+    src={project.image[0].url}
+    alt={project.title}
+  />
+</div>
 
 <h1 class="text-4xl font-semibold mb-5">{project.name}</h1>
 
