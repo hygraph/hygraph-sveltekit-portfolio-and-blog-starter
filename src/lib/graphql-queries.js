@@ -47,7 +47,7 @@ export const projectQuery = gql`
 `
 
 const POST_FRAGMENT = gql`
-  fragment GetPostDetails on Post {
+  fragment PostDetails on Post {
     title
     slug
     date
