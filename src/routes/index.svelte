@@ -8,8 +8,8 @@
       client.request(authorsQuery),
       client.request(projectsQuery),
     ])
-    const { authors } = authorReq
-    const { projects } = projectsReq
+    const { authors } = authorRes
+    const { projects } = projectsRes
 
     return {
       props: {
