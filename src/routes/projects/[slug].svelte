@@ -24,23 +24,13 @@
   <title>My Portfolio | {project.name}</title>
 </svelte:head>
 
-{#if project.image[0]?.url}
-  <div class="sm:-mx-5 md:-mx-10 lg:-mx-20 xl:-mx-38 mb-5">
-    <img
-      class="rounded-lg"
-      src={project.image[0].url}
-      alt={`Cover Image for ${project.title}`}
-    />
-  </div>
-{:else}
-  <div class="sm:-mx-5 md:-mx-10 lg:-mx-20 xl:-mx-38 mb-5">
-    <img
-      class="rounded-xl"
-      src={`/default-cover-image.jpg`}
-      alt={`Default Cover Image`}
-    />
-  </div>
-{/if}
+<div class="sm:-mx-5 md:-mx-10 lg:-mx-20 xl:-mx-38 mb-5">
+  <img
+    class="rounded-lg"
+    src={project.image[0].url}
+    alt={project.title}
+  />
+</div>
 
 <h1 class="text-4xl font-semibold mb-5">{project.name}</h1>
 
