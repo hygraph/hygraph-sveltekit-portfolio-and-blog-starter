@@ -1,10 +1,9 @@
-# Jamstack Explorers GraphCMS and SvelteKit
+# GraphCMS SvelteKit Portfolio and Blog Starter
 
 > Minimalist Developer Portfolio and Blog built with SvelteKit,
 > Tailwind, daisyUI, and deployed to Vercel.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/spences10/developer-portfolio-and-blog&env=VITE_GRAPHQL_API)
-
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/spences10/developer-portfolio-and-blog&env=VITE_GRAPHQL_API)
 
 ## The stack
 
