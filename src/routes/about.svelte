@@ -1,19 +1,20 @@
 <script context="module">
-  export const load = async ({ fetch }) => {
-    const req = await fetch('/authors.json')
-    if (req.ok) {
-      const authors = await req.json()
-      return {
-        props: {
-          authors,
-        },
-      }
+  import { client } from '$lib/graphql-client'
+  import { authorsQuery } from '$lib/graphql-queries'
+  import { marked } from 'marked'
+
+  export const load = async () => {
+    const { authors } = await client.request(authorsQuery)
+
+    return {
+      props: {
+        authors,
+      },
     }
   }
 </script>
 
 <script>
-  import { marked } from 'marked'
   export let authors
   const {
     name,
