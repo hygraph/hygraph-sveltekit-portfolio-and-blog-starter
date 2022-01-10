@@ -1,7 +1,12 @@
 <script context="module">
+  import Head from '$lib/components/head.svelte'
   import ProjectCard from '$lib/components/project-card.svelte'
   import { client } from '$lib/graphql-client'
   import { authorsQuery, projectsQuery } from '$lib/graphql-queries'
+  import {
+    authorsStore,
+    siteMetadataStore,
+  } from '../stores/site-metadata'
 
   export const load = async () => {
     const [authorRes, projectsRes] = await Promise.all([
@@ -23,11 +28,22 @@
 <script>
   export let projects
   export let authors
+
+  const {
+    siteUrl,
+    name: siteName,
+    description,
+    openGraphDefaultImage,
+  } = $siteMetadataStore
+  const { name: authorName } = $authorsStore
 </script>
 
-<svelte:head>
-  <title>My Portfolio project</title>
-</svelte:head>
+<Head
+  title={`${siteName} · ${authorName}`}
+  {description}
+  image={openGraphDefaultImage.url}
+  url={`${siteUrl}`}
+/>
 
 <h1 class="font-bold text-center mb-20 text-5xl">
   Welcome to my Portfolio

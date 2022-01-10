@@ -1,7 +1,10 @@
 <script context="module">
+  import { page } from '$app/stores'
+  import Head from '$lib/components/head.svelte'
   import ProjectCard from '$lib/components/project-card.svelte'
   import { client } from '$lib/graphql-client'
   import { projectsQuery } from '$lib/graphql-queries'
+  import { siteMetadataStore } from '../../stores/site-metadata'
 
   export const load = async () => {
     const { projects } = await client.request(projectsQuery)
@@ -16,11 +19,20 @@
 
 <script>
   export let projects
+
+  const {
+    siteUrl,
+    name: siteName,
+    openGraphDefaultImage,
+  } = $siteMetadataStore
 </script>
 
-<svelte:head>
-  <title>My Portfolio projects</title>
-</svelte:head>
+<Head
+  title={`Projects · ${siteName}`}
+  description={`A list of recent projects.`}
+  image={openGraphDefaultImage.url}
+  url={`${siteUrl}${$page.path}`}
+/>
 
 <h1 class="font-bold mb-20 text-center text-5xl">
   Recent Projects by Me
