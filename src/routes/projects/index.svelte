@@ -1,7 +1,7 @@
 <script context="module">
   import { page } from '$app/stores'
-  import Head from '$lib/components/head.svelte'
-  import ProjectCard from '$lib/components/project-card.svelte'
+  import Head from '$components/head.svelte'
+  import ProjectCard from '$components/project-card.svelte'
   import { client } from '$lib/graphql-client'
   import { projectsQuery } from '$lib/graphql-queries'
   import { siteMetadataStore } from '$stores/site-metadata'

@@ -1,6 +1,6 @@
 <script context="module">
   import { page } from '$app/stores'
-  import Head from '$lib/components/head.svelte'
+  import Head from '$components/head.svelte'
   import { client } from '$lib/graphql-client'
   import { postQuery } from '$lib/graphql-queries'
   import { siteMetadataStore } from '$stores/site-metadata'
