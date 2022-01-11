@@ -3,8 +3,8 @@
   import Head from '$lib/components/head.svelte'
   import { client } from '$lib/graphql-client'
   import { postsQuery } from '$lib/graphql-queries'
+  import { siteMetadataStore } from '$stores/site-metadata'
   import { marked } from 'marked'
-  import { siteMetadataStore } from '../../stores/site-metadata'
 
   export const load = async () => {
     const { posts } = await client.request(postsQuery)
@@ -31,7 +31,7 @@
   title={`Blog posts! · ${siteName}`}
   description={`A list of recent blog posts.`}
   image={openGraphDefaultImage.url}
-  url={`${siteUrl}${$page.path}`}
+  url={`${siteUrl}${$page.url.pathname}`}
 />
 
 <h1 class="text-4xl mb-10 font-extrabold">Blog posts</h1>

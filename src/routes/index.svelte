@@ -6,7 +6,7 @@
   import {
     authorsStore,
     siteMetadataStore,
-  } from '../stores/site-metadata'
+  } from '$stores/site-metadata'
 
   export const load = async () => {
     const [authorRes, projectsRes] = await Promise.all([

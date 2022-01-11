@@ -4,7 +4,7 @@
   import ProjectCard from '$lib/components/project-card.svelte'
   import { client } from '$lib/graphql-client'
   import { projectsQuery } from '$lib/graphql-queries'
-  import { siteMetadataStore } from '../../stores/site-metadata'
+  import { siteMetadataStore } from '$stores/site-metadata'
 
   export const load = async () => {
     const { projects } = await client.request(projectsQuery)
@@ -31,7 +31,7 @@
   title={`Projects · ${siteName}`}
   description={`A list of recent projects.`}
   image={openGraphDefaultImage.url}
-  url={`${siteUrl}${$page.path}`}
+  url={`${siteUrl}${$page.url.pathname}`}
 />
 
 <h1 class="font-bold mb-20 text-center text-5xl">

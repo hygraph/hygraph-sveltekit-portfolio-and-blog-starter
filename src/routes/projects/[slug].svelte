@@ -3,10 +3,10 @@
   import Head from '$lib/components/head.svelte'
   import { client } from '$lib/graphql-client'
   import { projectQuery } from '$lib/graphql-queries'
+  import { siteMetadataStore } from '$stores/site-metadata'
   import { marked } from 'marked'
-  import { siteMetadataStore } from '../../stores/site-metadata'
 
-  export const load = async ({ page: { params } }) => {
+  export const load = async ({ params }) => {
     const { slug } = params
     const variables = { slug }
     const { project } = await client.request(projectQuery, variables)
@@ -33,7 +33,7 @@
   title={`${project.name} · ${siteName}`}
   description={project.description.slice(0, 120)}
   image={openGraphDefaultImage.url}
-  url={`${siteUrl}${$page.path}`}
+  url={`${siteUrl}${$page.url.pathname}`}
 />
 
 <div class="sm:-mx-5 md:-mx-10 lg:-mx-20 xl:-mx-38 mb-5">
