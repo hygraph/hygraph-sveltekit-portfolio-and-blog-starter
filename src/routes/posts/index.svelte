@@ -1,6 +1,9 @@
 <script context="module">
+  import { page } from '$app/stores'
+  import Head from '$components/head.svelte'
   import { client } from '$lib/graphql-client'
   import { postsQuery } from '$lib/graphql-queries'
+  import { siteMetadataStore } from '$stores/site-metadata'
   import { marked } from 'marked'
 
   export const load = async () => {
@@ -16,11 +19,20 @@
 
 <script>
   export let posts
+
+  const {
+    siteUrl,
+    name: siteName,
+    openGraphDefaultImage,
+  } = $siteMetadataStore
 </script>
 
-<svelte:head>
-  <title>Portfolio | Welcome</title>
-</svelte:head>
+<Head
+  title={`Blog posts! · ${siteName}`}
+  description={`A list of recent blog posts.`}
+  image={openGraphDefaultImage.url}
+  url={`${siteUrl}${$page.url.pathname}`}
+/>
 
 <h1 class="text-4xl mb-10 font-extrabold">Blog posts</h1>
 

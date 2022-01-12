@@ -1,9 +1,12 @@
 <script context="module">
+  import { page } from '$app/stores'
+  import Head from '$components/head.svelte'
   import { client } from '$lib/graphql-client'
   import { projectQuery } from '$lib/graphql-queries'
+  import { siteMetadataStore } from '$stores/site-metadata'
   import { marked } from 'marked'
 
-  export const load = async ({ page: { params } }) => {
+  export const load = async ({ params }) => {
     const { slug } = params
     const variables = { slug }
     const { project } = await client.request(projectQuery, variables)
@@ -18,11 +21,20 @@
 
 <script>
   export let project
+
+  const {
+    siteUrl,
+    name: siteName,
+    openGraphDefaultImage,
+  } = $siteMetadataStore
 </script>
 
-<svelte:head>
-  <title>My Portfolio | {project.name}</title>
-</svelte:head>
+<Head
+  title={`${project.name} · ${siteName}`}
+  description={project.description.slice(0, 120)}
+  image={openGraphDefaultImage.url}
+  url={`${siteUrl}${$page.url.pathname}`}
+/>
 
 <div class="sm:-mx-5 md:-mx-10 lg:-mx-20 xl:-mx-38 mb-5">
   <img

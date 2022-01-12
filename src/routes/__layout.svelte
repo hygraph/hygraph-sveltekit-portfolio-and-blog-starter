@@ -1,6 +1,6 @@
 <script>
-  import Footer from '$lib/components/footer.svelte'
-  import Navbar from '$lib/components/navbar.svelte'
+  import Footer from '$components/footer.svelte'
+  import Navbar from '$components/navbar.svelte'
   import { onMount } from 'svelte'
   import { themeChange } from 'theme-change'
   import '../app.css'

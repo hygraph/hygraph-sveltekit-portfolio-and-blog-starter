@@ -96,6 +96,9 @@ export const siteMetadataQuery = gql`
       name
       siteUrl
       description
+      openGraphDefaultImage {
+        url
+      }
     }
   }
 `
