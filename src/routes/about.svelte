@@ -5,6 +5,7 @@
   import { authorsQuery } from '$lib/graphql-queries'
   import { siteMetadataStore } from '$stores/site-metadata'
   import { marked } from 'marked'
+  import { onMount } from 'svelte'
 
   export const load = async () => {
     const { authors } = await client.request(authorsQuery)
@@ -19,7 +20,11 @@
 
 <script>
   export let authors
+  let pathname
 
+  onMount(async () => {
+    pathname = $page.url.pathname
+  })
   const {
     name,
     intro,
@@ -38,7 +43,7 @@
   title={`About · ${siteName}`}
   description={bio.slice(0, 120)}
   image={openGraphDefaultImage.url}
-  url={`${siteUrl}${$page.url.pathname}`}
+  url={`${siteUrl}${pathname}`}
 />
 
 <h1 class="font-bold text-center mb-20 text-5xl">About Me</h1>

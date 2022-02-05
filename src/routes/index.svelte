@@ -5,8 +5,13 @@
   import { authorsQuery, projectsQuery } from '$lib/graphql-queries'
   import {
     authorsStore,
+    fetchAuthors,
+    fetchSiteMetadata,
     siteMetadataStore,
   } from '$stores/site-metadata'
+
+  fetchAuthors()
+  fetchSiteMetadata()
 
   export const load = async () => {
     const [authorRes, projectsRes] = await Promise.all([

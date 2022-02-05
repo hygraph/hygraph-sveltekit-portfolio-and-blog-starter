@@ -5,6 +5,7 @@
   import { projectQuery } from '$lib/graphql-queries'
   import { siteMetadataStore } from '$stores/site-metadata'
   import { marked } from 'marked'
+  import { onMount } from 'svelte'
 
   export const load = async ({ params }) => {
     const { slug } = params
@@ -21,6 +22,11 @@
 
 <script>
   export let project
+  let pathname
+
+  onMount(async () => {
+    pathname = $page.url.pathname
+  })
 
   const {
     siteUrl,
@@ -33,7 +39,7 @@
   title={`${project.name} · ${siteName}`}
   description={project.description.slice(0, 120)}
   image={openGraphDefaultImage.url}
-  url={`${siteUrl}${$page.url.pathname}`}
+  url={`${siteUrl}${pathname}`}
 />
 
 <div class="sm:-mx-5 md:-mx-10 lg:-mx-20 xl:-mx-38 mb-5">
