@@ -3,11 +3,16 @@
   import Head from '$components/head.svelte'
   import { client } from '$lib/graphql-client'
   import { projectQuery } from '$lib/graphql-queries'
-  import { siteMetadataStore } from '$stores/site-metadata'
+  import {
+    fetchSiteMetadata,
+    siteMetadataStore,
+  } from '$stores/site-metadata'
   import { marked } from 'marked'
   import { onMount } from 'svelte'
 
   export const load = async ({ params }) => {
+    await fetchSiteMetadata()
+
     const { slug } = params
     const variables = { slug }
     const { project } = await client.request(projectQuery, variables)
@@ -32,7 +37,7 @@
     siteUrl,
     name: siteName,
     openGraphDefaultImage,
-  } = $siteMetadataStore
+  } = $siteMetadataStore || []
 </script>
 
 <Head

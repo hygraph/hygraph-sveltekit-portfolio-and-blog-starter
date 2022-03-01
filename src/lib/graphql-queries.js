@@ -97,7 +97,11 @@ export const siteMetadataQuery = gql`
       siteUrl
       description
       openGraphDefaultImage {
-        url
+        url(
+          transformation: {
+            image: { resize: { width: 1200, height: 630, fit: clip } }
+          }
+        )
       }
     }
   }

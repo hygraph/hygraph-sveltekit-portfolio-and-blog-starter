@@ -10,10 +10,10 @@
     siteMetadataStore,
   } from '$stores/site-metadata'
 
-  fetchAuthors()
-  fetchSiteMetadata()
-
   export const load = async () => {
+    await fetchAuthors()
+    await fetchSiteMetadata()
+
     const [authorRes, projectsRes] = await Promise.all([
       client.request(authorsQuery),
       client.request(projectsQuery),
@@ -39,8 +39,8 @@
     name: siteName,
     description,
     openGraphDefaultImage,
-  } = $siteMetadataStore
-  const { name: authorName } = $authorsStore
+  } = $siteMetadataStore || []
+  const { name: authorName } = $authorsStore || []
 </script>
 
 <Head
