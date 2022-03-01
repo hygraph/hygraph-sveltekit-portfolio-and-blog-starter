@@ -10,8 +10,9 @@
   import { marked } from 'marked'
   import { onMount } from 'svelte'
 
-  fetchSiteMetadata()
   export const load = async () => {
+    await fetchSiteMetadata()
+
     const { posts } = await client.request(postsQuery)
 
     return {
@@ -34,7 +35,7 @@
     siteUrl,
     name: siteName,
     openGraphDefaultImage,
-  } = $siteMetadataStore
+  } = $siteMetadataStore || []
 </script>
 
 <Head

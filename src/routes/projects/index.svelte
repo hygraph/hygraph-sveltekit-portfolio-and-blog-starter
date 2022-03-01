@@ -10,8 +10,9 @@
   } from '$stores/site-metadata'
   import { onMount } from 'svelte'
 
-  fetchSiteMetadata()
   export const load = async () => {
+    await fetchSiteMetadata()
+
     const { projects } = await client.request(projectsQuery)
 
     return {
@@ -34,7 +35,7 @@
     siteUrl,
     name: siteName,
     openGraphDefaultImage,
-  } = $siteMetadataStore
+  } = $siteMetadataStore || []
 </script>
 
 <Head
