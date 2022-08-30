@@ -4,7 +4,7 @@
 > Tailwind, daisyUI, and deployed to Vercel.
 
 [![Clone project](https://hygraph.com/button)](https://app.hygraph.com/clone/77e3a126472d443bad40b9e4cac85243?name=Developer%20Portfolio%20%26%20Blog)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/spences10/developer-portfolio-and-blog&env=VITE_GRAPHQL_API)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/spences10/developer-portfolio-and-blog&env=HYGRAPH_ENDPOINT)
 
 ## The stack
 
