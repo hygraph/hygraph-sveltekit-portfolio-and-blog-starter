@@ -1,39 +1,20 @@
-<script context="module">
+<script>
   import { page } from '$app/stores'
   import Head from '$components/head.svelte'
-  import { client } from '$lib/graphql-client'
-  import { postQuery } from '$lib/graphql-queries'
   import {
-    fetchSiteMetadata,
-    siteMetadataStore,
+      siteMetadataStore
   } from '$stores/site-metadata'
   import { marked } from 'marked'
   import { onMount } from 'svelte'
 
-  export const load = async ({ params }) => {
-    await fetchSiteMetadata()
-
-    const { slug } = params
-    const variables = { slug }
-    const { post } = await client.request(postQuery, variables)
-
-    return {
-      props: {
-        post,
-      },
-    }
-  }
-</script>
-
-<script>
-  export let post
   let pathname
+  export let data
 
   onMount(async () => {
     pathname = $page.url.pathname
   })
 
-  const { title, date, tags, content, coverImage } = post
+  const { title, date, tags, content, coverImage } = data.post
   const { siteUrl, name: siteName } = $siteMetadataStore || []
 </script>
 

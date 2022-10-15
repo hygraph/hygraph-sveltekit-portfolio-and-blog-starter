@@ -3,6 +3,7 @@ import { gql } from 'graphql-request'
 import { get as meatdata } from './site-metadata.json.js'
 
 export const get = async () => {
+
   const {
     body: { name, siteUrl },
   } = await meatdata()

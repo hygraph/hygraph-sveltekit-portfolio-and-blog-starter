@@ -1,30 +1,12 @@
-<script context="module">
+<script>
   import { page } from '$app/stores'
   import Head from '$components/head.svelte'
-  import { client } from '$lib/graphql-client'
-  import { authorsQuery } from '$lib/graphql-queries'
   import {
-    fetchSiteMetadata,
-    siteMetadataStore,
+      siteMetadataStore
   } from '$stores/site-metadata'
   import { marked } from 'marked'
   import { onMount } from 'svelte'
-
-  export const load = async () => {
-    await fetchSiteMetadata()
-
-    const { authors } = await client.request(authorsQuery)
-
-    return {
-      props: {
-        authors,
-      },
-    }
-  }
-</script>
-
-<script>
-  export let authors
+  export let data
   let pathname
 
   onMount(async () => {
@@ -36,7 +18,7 @@
     intro,
     bio,
     picture: { url },
-  } = authors[0]
+  } = data.authors[0]
 
   const {
     siteUrl,

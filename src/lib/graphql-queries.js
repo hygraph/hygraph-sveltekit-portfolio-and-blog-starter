@@ -1,5 +1,4 @@
 import { gql } from 'graphql-request'
-
 export const authorsQuery = gql`
   query GetAuthors {
     authors {
