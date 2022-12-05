@@ -1,31 +1,6 @@
 import { client } from '$lib/graphql-client'
 import { gql } from 'graphql-request'
-import { get as meatdata } from './site-metadata.json.js'
-
-export const get = async () => {
-  const {
-    body: { name, siteUrl },
-  } = await meatdata()
-  const query = gql`
-    query Posts {
-      posts {
-        title
-        slug
-      }
-    }
-  `
-  const { posts } = await client.request(query)
-  const body = xml(posts, name, siteUrl)
-
-  const headers = {
-    'Cache-Control': 'max-age=0, s-maxage=3600',
-    'Content-Type': 'application/xml',
-  }
-  return {
-    headers,
-    body,
-  }
-}
+import { json } from '@sveltejs/kit'
 
 const xml = (
   posts,
@@ -45,13 +20,13 @@ const xml = (
           <description>This is my portfolio!</description>
           <link>${siteUrl}/posts/${post.slug}/</link>
           <pubDate>${new Date(post.date)}</pubDate>
-          <content:encoded>${post.previewHtml} 
+          <content:encoded>${post.previewHtml}
             <div style="margin-top: 50px; font-style: italic;">
               <strong>
                 <a href="${siteUrl}/posts/${post.slug}">
                   Keep reading
                 </a>
-              </strong>  
+              </strong>
             </div>
           </content:encoded>
         </item>
@@ -60,3 +35,29 @@ const xml = (
       .join('')}
   </channel>
 </rss>`
+
+export const GET = async () => {
+  const query = gql`
+    query Posts {
+      projectMetadatas {
+        name
+        siteUrl
+        description
+      }
+      posts {
+        title
+        slug
+      }
+    }
+  `
+  const { projectMetadatas, posts } = await client.request(query)
+  const { name, siteUrl } = projectMetadatas[0]
+  const body = xml(posts, name, siteUrl)
+
+  return new Response(body, {
+    headers: {
+      'Cache-Control': 'max-age=0, s-maxage=3600',
+      'Content-Type': 'application/xml',
+    },
+  })
+}
