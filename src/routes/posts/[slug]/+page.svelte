@@ -1,9 +1,7 @@
 <script>
   import { page } from '$app/stores'
   import Head from '$components/head.svelte'
-  import {
-      siteMetadataStore
-  } from '$stores/site-metadata'
+  import { siteMetadataStore } from '$stores/site-metadata'
   import { marked } from 'marked'
   import { onMount } from 'svelte'
 

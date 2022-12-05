@@ -6,8 +6,7 @@
     "build": "vite build",
     "package": "svelte-kit package",
     "preview": "vite preview",
-    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
-    "format": "pretty-quick"
+    "lint": "prettier --write --ignore-path .gitignore --check --plugin-search-dir=. ."
   },
   "husky": {
     "hooks": {

@@ -2,9 +2,7 @@
   import { page } from '$app/stores'
   import Head from '$components/head.svelte'
   import ProjectCard from '$components/project-card.svelte'
-  import {
-      siteMetadataStore
-  } from '$stores/site-metadata'
+  import { siteMetadataStore } from '$stores/site-metadata'
   import { onMount } from 'svelte'
 
   export let data
