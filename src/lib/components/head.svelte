@@ -3,7 +3,6 @@
     authorsStore,
     siteMetadataStore,
   } from '../../stores/site-metadata'
-
   export let title // page title
   export let description // page description
   export let image // page image

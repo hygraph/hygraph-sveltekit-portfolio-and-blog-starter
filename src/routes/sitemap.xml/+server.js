@@ -1,46 +1,5 @@
 import { client } from '$lib/graphql-client'
 import { gql } from 'graphql-request'
-import { get as meatdata } from './site-metadata.json.js'
-
-export const get = async () => {
-  const {
-    body: { siteUrl },
-  } = await meatdata()
-  const queryPosts = gql`
-    query Posts {
-      posts {
-        title
-        slug
-      }
-    }
-  `
-  const queryProjects = gql`
-    query Projects {
-      projects {
-        name
-        slug
-      }
-    }
-  `
-  const [postsRes, projectsRes] = await Promise.all([
-    client.request(queryPosts),
-    client.request(queryProjects),
-  ])
-  const { posts } = postsRes
-  const { projects } = projectsRes
-
-  const pages = [`projects`, `posts`, `about`]
-  const body = sitemap(posts, projects, pages, siteUrl)
-
-  const headers = {
-    'Cache-Control': 'max-age=0, s-maxage=3600',
-    'Content-Type': 'application/xml',
-  }
-  return {
-    headers,
-    body,
-  }
-}
 
 const sitemap = (
   posts,
@@ -95,3 +54,38 @@ const sitemap = (
     )
     .join('')}
 </urlset>`
+
+export const GET = async () => {
+  const query = gql`
+    query Posts {
+      projectMetadatas {
+        name
+        siteUrl
+        description
+      }
+      posts {
+        title
+        slug
+      }
+      projects {
+        name
+        slug
+      }
+    }
+  `
+
+  const { projectMetadatas, posts, projects } = await client.request(
+    query
+  )
+  const { siteUrl } = projectMetadatas[0]
+
+  const pages = [`projects`, `posts`, `about`]
+  const body = sitemap(posts, projects, pages, siteUrl)
+
+  return new Response(body, {
+    headers: {
+      'Cache-Control': 'max-age=0, s-maxage=3600',
+      'Content-Type': 'application/xml',
+    },
+  })
+}
